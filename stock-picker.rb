@@ -1,20 +1,14 @@
 def stock_picker(array)
     max_profit = nil
     best_days = [2]
-    array.each do |first|
-        array.each do |second|
-            puts "first #{first}"
-            puts "second #{second}"
+    array.each_with_index do |first, index|
+        new_array = array.drop(index + 1)
+        new_array.each do |second|
             profit = first - second
-            puts "profit #{profit}"
-            if max_profit == nil
+            if max_profit == nil || profit < max_profit
                 max_profit = profit
-                best_days[0] = first
-                best_days[1] = second
-            elsif profit < max_profit
-                max_profit = profit
-                best_days[0] = first
-                best_days[1] = second
+                best_days[0] = array.find_index(first)
+                best_days[1] = array.find_index(second)
             end
         end
     end
